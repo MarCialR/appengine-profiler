@@ -15,7 +15,7 @@ def main():
 
 = Profiling information and output =
 
-For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request_and_Datastore Wiki screenshots page].
+For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request Wiki screenshots page].
 
 Explanation of the fields of each line:
   * *Request summary*:
@@ -36,7 +36,7 @@ If you want to evaluate the cost of a block in your program, you can enclose cod
 
 Every tracepoint must have a unique name, and you cannot have more than one tracepoint activated while another is being active. This prevents that you account a resource twice. Each tracepoint will be accounted as a separate *subsystem* in the *Request summary* (see above). Note that the unique names of your tracepoints should not start with "*api`_`*", as this prefix is used internally.
 
-The [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request,_Datastore_and_tracepoints Wiki screenshots page] provides a sample output.
+The [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Tracepoints Wiki screenshots page] provides a sample output.
 
 An example follows which shows how to create three tracepoints - "loop", "template", and "write":
 {{{
