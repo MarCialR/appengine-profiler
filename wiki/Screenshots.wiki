@@ -8,7 +8,7 @@ The logs are accessible under the [https://appengine.google.com/ Administration 
 
 = Request profiler =
 
-If you integrate the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request profiler] in your application, you will get the following profiling details:
+If you integrate the RequestProfiler in your application, you will get the following profiling details:
 {{{
 08-13 12:40AM 04.586 /camstore/upload 200 508ms 351cpu_ms 293api_cpu_ms 0kb libwww-perl/5.825,gzip(gfe)
 11.222.111.222 - - [13/Aug/2010:00:40:05 -0700] "POST /camstore/upload HTTP/1.1" 200 181 - "libwww-perl/5.825,gzip(gfe)"
@@ -21,11 +21,11 @@ If you integrate the [http://code.google.com/p/appengine-profiler/wiki/RequestPr
   api_cpu_ms =  293.33 (api_datastore_v3 = 100%, other =   0%)
 }}}
 
-The meaning of each property is explained in the Wiki documentation page of the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request profiler].
+The meaning of each property is explained in the Wiki documentation page of the RequestProfiler.
 
 == Tracepoints ==
 
-The [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request profiler] gives you the option to also benchmark parts of your code, so that you can identify slow blocks within your application, using Tracepoints:
+The RequestProfiler gives you the option to also benchmark parts of your code, so that you can identify slow blocks within your application, using Tracepoints:
 {{{
 08-12 11:34PM 20.849 /camstore/ 200 1142ms 5540cpu_ms 4412api_cpu_ms 3kb Mozilla/5.0 (X11; U; Linux i686; en-US)
 11.222.111.222 - ivan.zahariev.famzah [12/Aug/2010:23:34:21 -0700] "GET /camstore/ HTTP/1.1" 200 3836 "" "Mozilla/5.0 (X11; U; Linux i686; en-US)"
@@ -40,11 +40,11 @@ The [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request pr
 
 The subsystem identifiers "before_loop", "loop", "template", and "write" are tracepoints which we manually defined in the source code, in order to know the resources cost of each block.
 
-The meaning of each property is explained in the Wiki documentation pages of the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request profiler].
+The meaning of each property is explained in the Wiki documentation pages of the RequestProfiler.
 
 = Datastore profiler =
 
-If you integrate the Datastore profiler in your application, you will get the following profiling details:
+If you integrate the DatastoreProfiler in your application, you will get the following profiling details:
 {{{
 08-13 12:40AM 04.586 /camstore/upload 200 508ms 351cpu_ms 293api_cpu_ms 0kb libwww-perl/5.825,gzip(gfe)
 11.222.111.222 - - [13/Aug/2010:00:40:05 -0700] "POST /camstore/upload HTTP/1.1" 200 181 - "libwww-perl/5.825,gzip(gfe)"
@@ -69,7 +69,7 @@ If you integrate the Datastore profiler in your application, you will get the fo
     rx/tx=11/86 keys_only=None {'CS_ImageBlobDB': 1, 'CS_ImageMetaDB': 1}
 }}}
 
-The meaning of each property is explained in the Wiki documentation pages of the Datastore profiler.
+The meaning of each property is explained in the Wiki documentation pages of the DatastoreProfiler.
 
 = cProfile profiler =
 
