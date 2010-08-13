@@ -21,7 +21,7 @@ If you integrate the [http://code.google.com/p/appengine-profiler/wiki/RequestPr
   api_cpu_ms =  293.33 (api_datastore_v3 = 100%, other =   0%)
 }}}
 
-The meaning of each property is explained in the Wiki documentation pages of the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request] and Datastore profilers.
+The meaning of each property is explained in the Wiki documentation page of the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request] profiler.
 
 = Tracepoints =
 
