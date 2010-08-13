@@ -32,7 +32,7 @@ Explanation of the *Datastore API summary* fields follows:
   * *entity_count*: The total count of entities (records) fetched, updated, deleted or otherwise affected by the calls. The speed of the Datastore seems to depend almost linearly on the entities count, so try to keep this to minimum.
   * *kbytes*: The total size of data in KBytes transferred between your application and the Datastore. The speed of the Datastore seems to depend almost linearly on the data size, so try to keep this to minimum.
 
-== dump_requests() ==
+== by dump_requests() ==
 
 The *dump_requests()* provides information about every Datastore request, and its usage is optional. Note that if you have many requests, you will not be able to see all of them in the application log, as it is being automatically truncated by the App Engine.
 
