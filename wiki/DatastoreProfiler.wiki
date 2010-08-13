@@ -23,7 +23,7 @@ The *show_summary()* function gives accumulated information about all Datastore 
 For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Datastore_profiler Wiki screenshots page].
 
 Explanation of the *Datastore API summary* fields follows:
-  * *calls*: The total count of remove calls that were made to the API. You should try to keep these to minimum.
+  * *calls*: The total count of remote calls that were made to the API. You should try to keep these to minimum.
   * *ms*: The total amount of wall-clock time in milliseconds which the API calls took.
   * *cpu_ms*: The total CPU time wasted for serialization/de-serialization of objects and other Datastore-related tasks by the Python SDK. This does not include the API CPU time below.
   * *api_cpu_ms*: The total CPU time spent by the Datastore system, which you queried via the API.
