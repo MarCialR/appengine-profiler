@@ -1,4 +1,4 @@
-#summary 5. Documentation for the cProfile profiler.
+#summary 6. Documentation for the cProfile profiler.
 
 <wiki:toc max_depth="2" />
 
