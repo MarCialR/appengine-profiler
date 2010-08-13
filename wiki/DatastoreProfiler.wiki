@@ -34,7 +34,7 @@ Explanation of the *Datastore API summary* fields follows:
 
 == dump_requests() ==
 
-The *dump_requests()* provides information about every Datastore request, and its usage is optional. Note that if you have many requests, you will not be able to see all of them in the application log, as it is being automatically truncated by the App Engine.
+The *dump_requests()* function provides information about every Datastore request, and its usage is optional. Note that if you have many requests, you will not be able to see all of them in the application log, as it is being automatically truncated by the App Engine.
 
 For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Datastore_profiler Wiki screenshots page].
 
