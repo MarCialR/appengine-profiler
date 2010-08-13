@@ -1,5 +1,7 @@
 #summary Documentation for the Request and tracepoints profilers.
 
+<wiki:toc max_depth="2" />
+
 = Integration =
 
 You have to activate the profiler hooks at the very beginning and at the very end of your application's main() function:
