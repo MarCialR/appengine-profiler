@@ -70,4 +70,4 @@ class MainPage(webapp.RequestHandler):
                 lib.profiler.appengine.request.deactivate_tracepoint('write')
 }}}
 
-Remember that you cannot have a tracepoint active while another is being active. For example, you cannot have a custom tracepoint active and at the same use an API method (datastore, image, etc) which makes a remote API call. The API calls are automatically accounted by the Request profiler, and internally it uses the same tracepoint mechanism, which will generate a conflict. A "Warning" log entry will be emitted in your logs if such a situation occurs.
+Remember that you cannot have a tracepoint active while another is being active. For example, you cannot have a custom tracepoint active and at the same time use an API method (datastore, image, etc) which makes a remote API call. The API calls are automatically accounted by the Request profiler, and internally it uses the same tracepoint mechanism, which will generate a conflict. A "Warning" log entry will be emitted in your logs if such a situation occurs.
