@@ -28,7 +28,7 @@ Explanation of the fields of each line:
   * *cpu_ms* (CPU time, includes the API CPU time too) - same notation as the "*ms*" line.
   * *api_cpu_ms* (CPU time spent by the external systems which you called via the API)  - same notation as the "*ms*" line.
 
-The API calls (to datastore, images, etc.) are automatically accounted by the Request profiler and appear as a *subsystem* statistics. The names of these subsystems are prefixed with "*api`_`*". Everything else which was not accounted to any subsystem is being shown as the "*other*" subsystem.
+The API calls (to datastore, images, etc.) are automatically accounted by the Request profiler and appear as a *subsystem* in the statistics. The names of these subsystems are prefixed with "*api`_`*". Everything else which was not accounted to any subsystem is being shown as the "*other*" subsystem.
 
 = Tracepoints =
 
