@@ -15,7 +15,7 @@ def main():
 
 = Profiling information and output =
 
-For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request Wiki screenshots page].
+For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request_profiler Wiki screenshots page].
 
 Explanation of the fields of each line:
   * *Request summary*:
