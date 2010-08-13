@@ -1,4 +1,4 @@
-#summary 001. Examples on what output you will actually see in your application logs.
+#summary 1. Examples on what output you will actually see in your application logs.
 
 <wiki:toc max_depth="2" />
 
