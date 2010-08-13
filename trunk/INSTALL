@@ -1,0 +1,12 @@
+You have to checkout/copy the files here in your "lib" directory, in a subdirectory "profiler".
+
+Example:
+  * Project's root directory is "project1".
+  * You need to create/have a subdirectory named "lib": "project1/lib".
+  * Then go into this directory by:
+	cd project1/lib
+  * Download the source of the profiler by:
+	svn checkout http://appengine-profiler.googlecode.com/svn/trunk profiler
+
+Review the Wiki page of the project for documentation:
+http://code.google.com/p/appengine-profiler/w/list
