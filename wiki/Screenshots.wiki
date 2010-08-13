@@ -6,9 +6,9 @@
 
 The logs are accessible under the [https://appengine.google.com/ Administration Console] of your App Engine application. They can also be [http://code.google.com/appengine/docs/python/tools/uploadinganapp.html#Downloading_Logs downloaded via the Python SDK] on your local computer.
 
-= Request and Datastore =
+= Request =
 
-If you integrate the Request and Datastore profilers in your application, you will get the following profiling details:
+If you integrate the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request] profiler in your application, you will get the following profiling details:
 {{{
 08-13 12:40AM 04.586 /camstore/upload 200 508ms 351cpu_ms 293api_cpu_ms 0kb libwww-perl/5.825,gzip(gfe)
 11.222.111.222 - - [13/Aug/2010:00:40:05 -0700] "POST /camstore/upload HTTP/1.1" 200 181 - "libwww-perl/5.825,gzip(gfe)"
@@ -19,6 +19,36 @@ If you integrate the Request and Datastore profilers in your application, you wi
   ms         =  425.66 (api_datastore_v3 =  98%, other =   2%)
   cpu_ms     =  326.67 (api_datastore_v3 =  95%, other =   5%)
   api_cpu_ms =  293.33 (api_datastore_v3 = 100%, other =   0%)
+}}}
+
+The meaning of each property is explained in the Wiki documentation pages of the http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request] and Datastore profilers.
+
+= Tracepoints =
+
+The [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request] profiler gives you the option to also benchmark parts of your code, so that you can identify slow blocks within your application, using Tracepoints:
+{{{
+08-12 11:34PM 20.849 /camstore/ 200 1142ms 5540cpu_ms 4412api_cpu_ms 3kb Mozilla/5.0 (X11; U; Linux i686; en-US)
+11.222.111.222 - ivan.zahariev.famzah [12/Aug/2010:23:34:21 -0700] "GET /camstore/ HTTP/1.1" 200 3836 "" "Mozilla/5.0 (X11; U; Linux i686; en-US)"
+"example.appspot.com" ms=1143 cpu_ms=5540 api_cpu_ms=4412 cpm_usd=0.154410
+
+[I] 08-12 11:34PM 21.884
+  Request summary (uptime=73, ID=E1923566:1.999999999 : Google App Engine/1.3.6 @ na5):
+  ms         = 1029.13 (api_datastore_v3 =  33%, before_loop =   0%, loop =  13%, template =  32%, write =   0%, other =  22%)
+  cpu_ms     = 5879.17 (api_datastore_v3 =  77%, before_loop =   0%, loop =   4%, template =  11%, write =   0%, other =   7%)
+  api_cpu_ms = 4412.50 (api_datastore_v3 = 100%, before_loop =   0%, loop =   0%, template =   0%, write =   0%, other =   0%)
+}}}
+
+The subsystem identifiers "before_loop", "loop", "template", and "write" are tracepoints which we manually defined in the source code, in order to know the resources cost of each block.
+
+The meaning of each property is explained in the Wiki documentation pages of the [http://code.google.com/p/appengine-profiler/wiki/RequestProfiler Request] profiler.
+
+= Datastore =
+
+If you integrate the Datastore profiler in your application, you will get the following profiling details:
+{{{
+08-13 12:40AM 04.586 /camstore/upload 200 508ms 351cpu_ms 293api_cpu_ms 0kb libwww-perl/5.825,gzip(gfe)
+11.222.111.222 - - [13/Aug/2010:00:40:05 -0700] "POST /camstore/upload HTTP/1.1" 200 181 - "libwww-perl/5.825,gzip(gfe)"
+"example.appspot.com:443" ms=508 cpu_ms=352 api_cpu_ms=293 cpm_usd=0.018512
 
 [I] 08-13 12:40AM 05.021
   Datastore API summary:
@@ -39,35 +69,7 @@ If you integrate the Request and Datastore profilers in your application, you wi
     rx/tx=11/86 keys_only=None {'CS_ImageBlobDB': 1, 'CS_ImageMetaDB': 1}
 }}}
 
-The meaning of each property is explained in the Wiki documentation pages of each profiler.
-
-= Request, Datastore and tracepoints =
-
-The Request profiler gives you the option to also benchmark parts of your code, so that you can identify slow blocks within your application:
-{{{
-08-12 11:34PM 20.849 /camstore/ 200 1142ms 5540cpu_ms 4412api_cpu_ms 3kb Mozilla/5.0 (X11; U; Linux i686; en-US)
-11.222.111.222 - ivan.zahariev.famzah [12/Aug/2010:23:34:21 -0700] "GET /camstore/ HTTP/1.1" 200 3836 "" "Mozilla/5.0 (X11; U; Linux i686; en-US)"
-"example.appspot.com" ms=1143 cpu_ms=5540 api_cpu_ms=4412 cpm_usd=0.154410
-
-[I] 08-12 11:34PM 21.884
-  Request summary (uptime=73, ID=E1923566:1.999999999 : Google App Engine/1.3.6 @ na5):
-  ms         = 1029.13 (api_datastore_v3 =  33%, before_loop =   0%, loop =  13%, template =  32%, write =   0%, other =  22%)
-  cpu_ms     = 5879.17 (api_datastore_v3 =  77%, before_loop =   0%, loop =   4%, template =  11%, write =   0%, other =   7%)
-  api_cpu_ms = 4412.50 (api_datastore_v3 = 100%, before_loop =   0%, loop =   0%, template =   0%, write =   0%, other =   0%)
-
-[I] 08-12 11:34PM 21.884
-  Datastore API summary:
-  Calls=  1, ms= 340.29, cpu_ms= 126.67, api_cpu_ms=4412.50, entity_count=480, kbytes= 86.0
-
-[D] 08-12 11:34PM 21.885
-  Datastore API requests:
-  RunQuery: ms= 340.29, cpu_ms= 126.67, api_cpu_ms=4412.50, entity_count=480, kbytes= 86.0
-    cost=None rx/tx=87976/108 keys_only=0 [{'CS_ImageMetaDB': 1}]
-}}}
-
-The identifiers "before_loop", "loop", "template", and "write" are tracepoints which we manually defined in the source code, in order to know the resources cost of each block.
-
-The meaning of each property is explained in the Wiki documentation pages of each profiler.
+The meaning of each property is explained in the Wiki documentation pages of the Datastore profiler.
 
 = cProfile =
 
