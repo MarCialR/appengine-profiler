@@ -35,7 +35,7 @@ Note that you definitely want to rename the original main() function to real_mai
 == Optional arguments ==
 
 There are some optional named arguments which you can pass to the *run()* function:
-  * *accumulate_subfunction_calls* (default is False): Affects the sort_stats() order of cProfile. True makes it 'cumulative' (usually not very useful), False makes it 'time'.
+  * *accumulate_subfunction_calls* (default is False): Affects the [http://www.python.org/doc//current/library/profile.html?highlight=cprofile#pstats.Stats.sort_stats sort_stats()] order of cProfile. True makes it 'cumulative' (usually not very useful), False makes it 'time'.
   * *lines_limit* (default is 20): Affects how many lines will be output at most.
 
 = Profiling information and output =
