@@ -34,7 +34,7 @@ The API calls (to datastore, images, etc.) are automatically accounted by the Re
 
 If you want to evaluate the cost of a block in your program, you can enclose code blocks with tracepoints, and thus benchmark their performance.
 
-Every tracepoint must have a unique name, and you cannot have more than one tracepoint activated while another is being active. This prevents that you count a resource twice. Each tracepoint will be accounted as a separate *subsystem* in the *Request summary* (see above). Note that the unique names of your tracepoints should not start with "*api`_`*", as this prefix is used internally.
+Every tracepoint must have a unique name, and you cannot have more than one tracepoint activated while another is being active. This prevents that you account a resource twice. Each tracepoint will be accounted as a separate *subsystem* in the *Request summary* (see above). Note that the unique names of your tracepoints should not start with "*api`_`*", as this prefix is used internally.
 
 The [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request,_Datastore_and_tracepoints Wiki screenshots page] provides a sample output.
 
