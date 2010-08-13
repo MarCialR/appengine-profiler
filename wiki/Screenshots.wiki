@@ -67,6 +67,8 @@ The Request profiler gives you the option to also benchmark parts of your code, 
 
 The identifiers "before_loop", "loop", "template", and "write" are tracepoints which we manually defined in the source code, in order to know the resources cost of each block.
 
+The meaning of each property is explained in the Wiki documentation pages of each profiler.
+
 = cProfile =
 
 Additionally to the above profilers, you can also enable the [http://docs.python.org/library/profile.html cProfile] tool which will give you detailed information about the benchmarks of your Python functions. The idea for this profiler was directly taken from the [http://code.google.com/appengine/kb/commontasks.html#profiling Google App Engine documentation].
@@ -105,3 +107,5 @@ cProfile data:
 }}}
 
 As we can see from the output, the slowest function calls in this case are Django's template engine, the API proxy, and the strftime() method of the 'datetime.date' objects.
+
+The meaning of each property is explained in the Wiki documentation pages of each profiler.
