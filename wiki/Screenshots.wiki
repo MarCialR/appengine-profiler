@@ -41,7 +41,7 @@ The meaning of each property is explained in the Wiki documentation pages of eac
 
 = Request, Datastore and tracepoints =
 
-The Request profiler gives you the option to also benchmark parts of your code, so that you can identify slow blocks or functions within your application:
+The Request profiler gives you the option to also benchmark parts of your code, so that you can identify slow blocks within your application:
 {{{
 08-12 11:34PM 20.849 /camstore/ 200 1142ms 5540cpu_ms 4412api_cpu_ms 3kb Mozilla/5.0 (X11; U; Linux i686; en-US)
 11.222.111.222 - ivan.zahariev.famzah [12/Aug/2010:23:34:21 -0700] "GET /camstore/ HTTP/1.1" 200 3836 "" "Mozilla/5.0 (X11; U; Linux i686; en-US)"
