@@ -1,4 +1,4 @@
-#summary Installation instructions.
+#summary 010. Installation instructions.
 
 The installation involves two steps:
   # Copy the Python library in your application source - [http://code.google.com/p/appengine-profiler/source/browse/trunk/INSTALL review the INSTALL file] in the SVN repository.
