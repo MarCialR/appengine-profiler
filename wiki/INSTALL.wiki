@@ -1,0 +1,5 @@
+#summary Installation instructions.
+
+The installation involves two steps:
+  # Copy the Python library in your application source - [http://code.google.com/p/appengine-profiler/source/browse/trunk/INSTALL review the INSTALL file] in the SVN repository.
+  # Modify your application's code, so that you enable the profilers - review the documentation of each profiler in the Wiki for detailed instructions and examples.
