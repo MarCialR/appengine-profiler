@@ -37,7 +37,7 @@ The *dump_requests()* provides information about every Datastore request, and it
 For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Datastore_profiler Wiki screenshots page].
 
 For each Datastore request you made, two or three lines are output in the log. You can easily see which line belongs to which request, as sub-lines are indented:
-  * The *first line* for a request shows the call type (Put, Get, Delete, RunQuery, Next, etc.), and also gives summary information about the call. The summary information is the very same as the one given by show_summary(), only in this case the values reflect only this particular single Datastore request.
+  * The *first line* for a request shows the call type (Put, Get, Delete, RunQuery, Next, etc.), and also gives summary information about the call. The summary information is the very same as the one given by [http://code.google.com/p/appengine-profiler/wiki/DatastoreProfiler#Profiling_information_and_output_by_show_summary() show_summary()] above, only in this case the values reflect only this particular single Datastore request.
   * An optional *second line* line with the "*cost*" may follow. This information is provided internally by the Datastore engine, and is stored in the log without any modifications, apart from re-formatting it on a single line.
   * The *last line* shows the following:
     * *rx/tx* (Receive/Transmit): The size of the data in Bytes (not KBytes) which was transferred between your application and the Datastore for this particular API call.
