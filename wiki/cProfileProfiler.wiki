@@ -40,6 +40,6 @@ There are some optional named arguments which you can pass to the *run()* functi
 
 = Profiling information and output =
 
-For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#Request_profiler Wiki screenshots page].
+For sample output, please review the [http://code.google.com/p/appengine-profiler/wiki/Screenshots#cProfile_profiler Wiki screenshots page].
 
 The output is directly taken from the [http://www.python.org/doc//current/library/profile.html?highlight=cprofile#module-pstats Python cProfile module], and therefore there is no need to duplicate the documentation here.
