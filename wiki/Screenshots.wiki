@@ -4,7 +4,7 @@
 
 = Logs =
 
-The logs are accessible under the [https://appengine.google.com/ Administration Console] of your App Engine application. They can also be [http://code.google.com/appengine/docs/python/tools/uploadinganapp.html#Downloading_Logs downloaded via the Python SDK] on your local computer.
+The [http://code.google.com/appengine/articles/logging.html logs] are accessible under the [https://appengine.google.com/ Administration Console] of your App Engine application. They can also be [http://code.google.com/appengine/docs/python/tools/uploadinganapp.html#Downloading_Logs downloaded via the Python SDK] on your local computer.
 
 = Request profiler =
 
