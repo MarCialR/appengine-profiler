@@ -67,7 +67,7 @@ The identifiers "before_loop", "loop", "template", and "write" are tracepoints w
 
 = cProfile =
 
-Additionally to the above profilers, you can also enable the [http://docs.python.org/library/profile.html cProfile] tool which will give you detailed information about the benchmarks of your Python functions.
+Additionally to the above profilers, you can also enable the [http://docs.python.org/library/profile.html cProfile] tool which will give you detailed information about the benchmarks of your Python functions. The idea for this profiler was directly taken from the [http://code.google.com/intl/bg/appengine/kb/commontasks.html#profiling Google App Engine documentation].
 
 The following screenshot lists only the additional section which is being added (so that we can keep the Wiki page shorter):
 {{{
