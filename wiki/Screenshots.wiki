@@ -110,4 +110,4 @@ cProfile data:
 
 As we can see from the output, the slowest function calls in this case are Django's template engine, the API proxy, and the strftime() method of the 'datetime.date' objects.
 
-The meaning of each property is explained in the Wiki documentation pages of the cProfileProfiler.
+The meaning of each property is explained in the Wiki documentation pages of the [cProfileProfiler cProfileProfiler].
