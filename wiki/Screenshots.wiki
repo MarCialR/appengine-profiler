@@ -1,6 +1,5 @@
 #summary Examples on what output you will actually see in your application logs.
 
-Contents:
 <wiki:toc max_depth="1" />
 
 = Logs =
