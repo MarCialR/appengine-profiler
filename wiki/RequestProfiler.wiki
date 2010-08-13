@@ -19,7 +19,7 @@ For sample output, please review the [http://code.google.com/p/appengine-profile
 
 Explanation of the fields of each line:
   * *Request summary*:
-    * *uptime*: How many requests has this App Engine instance served. App Engine starts and kills instances dynamically, in order to accommodate the load on your website.
+    * *uptime*: The number of requests this App Engine instance has served. App Engine starts and kills instances dynamically, in order to accommodate the load on your website.
     * *ID*: Internal request ID. Might be useful if you are debugging something with Google's staff.
     * *Google App Engine/X.Y.Z @ L*: The *X.Y.Z* version of the App Engine, just informative, and the data center location *L* which served your request.
   * *ms* (wall-clock time):
