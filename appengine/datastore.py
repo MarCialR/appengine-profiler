@@ -5,28 +5,53 @@ from google.appengine.api import quota
 import logging
 import lib.profiler.core
 
+import base64
+import pickle
+import zlib
+
 # Beware! These are preserved during the whole life of the GAE instance, not just during the life of the request!
 # http://code.google.com/appengine/docs/python/runtime.html#App_Caching
 requests = None
-clock_timer = None
-api_timer = None
-cpu_timer = None
+#clock_timer = None
+#api_timer = None
+#cpu_timer = None
+
+
+active_requests = {}
+# TODO: set this to a new threading.Lock() object
+active_requests_mutex = None
+
+class RequestTimers(object):
+	def __init__(self):
+		self.clock_timer = lib.profiler.core.Timer()
+		self.api_timer = lib.profiler.core.Timer()
+		self.cpu_timer = lib.profiler.core.Timer()
+		self.clock_timer.start()
+		self.api_timer.set_begin(quota.get_request_api_cpu_usage())
+		self.cpu_timer.set_begin(quota.get_request_cpu_usage())
+		
+
 
 def _zero_timers(): # for every web request
 	global requests
-	global clock_timer
-	global api_timer
-	global cpu_timer
+	#global clock_timer
+	#global api_timer
+	#global cpu_timer
 	requests = []
-	clock_timer = lib.profiler.core.Timer()
-	api_timer = lib.profiler.core.Timer()
-	cpu_timer = lib.profiler.core.Timer()
+	#clock_timer = lib.profiler.core.Timer()
+	#api_timer = lib.profiler.core.Timer()
+	#cpu_timer = lib.profiler.core.Timer()
+	global active_requests
+	active_requests = {}
 
-def _log_request(call, kind, keys_only, count, response_ByteSize, request_ByteSize, cost):
+def _log_request(call, kind, keys_only, count, response_ByteSize, request_ByteSize, cost, timers):
 	global requests
-	global clock_timer
-	global api_timer
-	global cpu_timer
+	#global clock_timer
+	#global api_timer
+	#global cpu_timer
+	clock_timer = timers.clock_timer
+	api_timer = timers.api_timer
+	cpu_timer = timers.cpu_timer
 
 	if count is None:
 		count = -1
@@ -89,28 +114,52 @@ def dump_requests():
 		))
 	logging.debug('Datastore API requests:\n' + '\n'.join(lines))
 
+def binary_requests():
+	global requests
+	logging.debug('Datastore API requests-bin: ' + base64.b64encode(zlib.compress(pickle.dumps(requests))))
+
 def activate():
 	def model_name_from_key(key):
 		return key.path().element_list()[0].type()
 
 	def pre_hook(service, call, request, response):
-		global clock_timer
-		global api_timer
-		global cpu_timer
+		#global clock_timer
+		#global api_timer
+		#global cpu_timer
+		global active_requests
+		global active_requests_mutex
+		if active_requests_mutex is not None:
+			active_requests_mutex.acquire()
 		assert service == 'datastore_v3'
-		clock_timer.start()
-		api_timer.set_begin(quota.get_request_api_cpu_usage())
-		cpu_timer.set_begin(quota.get_request_cpu_usage())
+		#logging.info('pre_hook call=%r, request=%r, response=%r', call, request, response)
+#		clock_timer.start()
+#		api_timer.set_begin(quota.get_request_api_cpu_usage())
+#		cpu_timer.set_begin(quota.get_request_cpu_usage())
+		active_requests[id(request)] = RequestTimers()
+		if active_requests_mutex is not None:
+			active_requests_mutex.release()
 
 	def post_hook(service, call, request, response):
-		global clock_timer
-		global api_timer
-		global cpu_timer
+		#global clock_timer
+		#global api_timer
+		#global cpu_timer
+		global active_requests
+		global active_requests_mutex
+		if active_requests_mutex is not None:
+			active_requests_mutex.acquire()
 
 		assert service == 'datastore_v3'
-		clock_timer.stop()
-		api_timer.set_end(quota.get_request_api_cpu_usage())
-		cpu_timer.set_end(quota.get_request_cpu_usage())
+		#logging.info('post_hook call=%r, request=%r, response=%r', call, request, response)
+		timer = active_requests.pop(id(request), None)
+		if active_requests_mutex is not None:
+			active_requests_mutex.release()
+
+		if timer is None:
+			logging.error('no active request')
+			return
+		timer.clock_timer.stop()
+		timer.api_timer.set_end(quota.get_request_api_cpu_usage())
+		timer.cpu_timer.set_end(quota.get_request_cpu_usage())
 
 		# http://code.google.com/appengine/docs/python/datastore/functions.html
 		if call == 'Put': # you may put different Model kinds in one call
@@ -125,7 +174,7 @@ def activate():
 				cost = response.cost()
 			else:
 				cost = None
-			_log_request(call, entity_kinds, None, request.entity_size(), response.ByteSize(), request.ByteSize(), cost)
+			_log_request(call, entity_kinds, None, request.entity_size(), response.ByteSize(), request.ByteSize(), cost, timer)
 		elif call == 'Get': # you may get different Model kinds in one call
 			assert isinstance(request, datastore_pb.GetRequest)
 			assert isinstance(response, datastore_pb.GetResponse)
@@ -138,7 +187,7 @@ def activate():
 				kind = model_name_from_key(key)
 				entity_kinds.setdefault(kind, 0)
 				entity_kinds[kind] += 1
-			_log_request(call, entity_kinds, None, response.entity_size(), response.ByteSize(), request.ByteSize(), None)
+			_log_request(call, entity_kinds, None, response.entity_size(), response.ByteSize(), request.ByteSize(), None, timer)
 		elif call == 'Delete': # you may delete different Model kinds in one call
 			assert isinstance(request, datastore_pb.DeleteRequest)
 			assert isinstance(response, datastore_pb.DeleteResponse)
@@ -151,7 +200,7 @@ def activate():
 				cost = response.cost()
 			else:
 				cost = None
-			_log_request(call, entity_kinds, None, request.key_size(), response.ByteSize(), request.ByteSize(), cost)
+			_log_request(call, entity_kinds, None, request.key_size(), response.ByteSize(), request.ByteSize(), cost, timer)
 		elif call == 'RunQuery': # only SELECT/GET queries for one kind?
 			assert isinstance(request, datastore_pb.Query)
 			assert isinstance(response, datastore_pb.QueryResult)
@@ -164,7 +213,7 @@ def activate():
 				keys_only = response.keys_only()
 			else:
 				keys_only = None
-			_log_request(call, [{kind : 1}], keys_only, response.result_size(), response.ByteSize(), request.ByteSize(), None)
+			_log_request(call, [{kind : 1}], keys_only, response.result_size(), response.ByteSize(), request.ByteSize(), None, timer)
 		elif call == 'Next': # used by the SDK internally if you loop over a query
 			assert isinstance(request, datastore_pb.NextRequest)
 			assert isinstance(response, datastore_pb.QueryResult)
@@ -173,10 +222,10 @@ def activate():
 				keys_only = response.keys_only()
 			else:
 				keys_only = None
-			_log_request(call, [{kind : 1}], keys_only, response.result_size(), response.ByteSize(), request.ByteSize(), None)
+			_log_request(call, [{kind : 1}], keys_only, response.result_size(), response.ByteSize(), request.ByteSize(), None, timer)
 		else:
 			kind = str(request.__class__) + ' : ' + str(response.__class__) + ' : '
-			_log_request(call, [{kind : 1}], None, None, None, None, None)
+			_log_request(call, [{kind : 1}], None, None, None, None, None, timer)
 
 	_zero_timers()
 	apiproxy_stub_map.apiproxy.GetPreCallHooks().Push('datastore_profiler', pre_hook, 'datastore_v3')
