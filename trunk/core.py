@@ -6,8 +6,8 @@ class Timer():
 		self.end_t = None
 
 	def set_begin(self, t):
-		assert self.start_t is None
-		assert self.end_t is None
+		assert self.start_t is None, 'set_begin(%r) wanted None, None; got start_t=%r, end_t=%r' % (t, self.start_t, self.end_t)
+		assert self.end_t is None, 'set_begin(%r) wanted None, None; got start_t=%r, end_t=%r' % (t, self.start_t, self.end_t)
 		self.start_t = t
 	def start(self):
 		self.set_begin(time.time())
