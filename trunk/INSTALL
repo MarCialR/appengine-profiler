@@ -3,6 +3,8 @@ You have to checkout/copy the files here in your "lib" directory, in a subdirect
 Example:
   * Project's root directory is "project1".
   * You need to create/have a subdirectory named "lib": "project1/lib".
+  * If you don't have the following file, create an empty one:
+  	touch project1/lib/__init__.py
   * Then go into this directory by:
 	cd project1/lib
   * Download the source of the profiler by:
